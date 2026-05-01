@@ -104,15 +104,7 @@
       <div class="tw-swatch"     style="background:#EA580C" data-a="#EA580C" data-ah="#C2410C" data-f="#FFF4EE" data-f2="#FDDBB4" title="Naranja"></div>
     </div>
   </div>
-  <hr/>
-  <div class="tw-section">
-    <span class="tw-label">Modo</span>
-    <div class="tw-chips" id="tw-mode">
-      <button class="tw-chip on" data-m="light">☀ Claro</button>
-      <button class="tw-chip"    data-m="dark">🌙 Oscuro</button>
-    </div>
-  </div>
-  <hr/>
+
   <div class="tw-section">
     <span class="tw-label">Tipografía</span>
     <div class="tw-chips" id="tw-font">
@@ -201,16 +193,6 @@ function App() {
       sw.classList.add("on");
       applyTokens(sw.dataset.a, sw.dataset.ah, sw.dataset.f, sw.dataset.f2);
       window.parent.postMessage({ type:"__edit_mode_set_keys", edits:{ accent:sw.dataset.a } }, "*");
-    });
-
-    // Mode
-    document.getElementById("tw-mode").addEventListener("click", e => {
-      const btn = e.target.closest(".tw-chip");
-      if (!btn) return;
-      document.querySelectorAll("#tw-mode .tw-chip").forEach(b => b.classList.remove("on"));
-      btn.classList.add("on");
-      setDark(btn.dataset.m === "dark");
-      window.parent.postMessage({ type:"__edit_mode_set_keys", edits:{ darkMode: btn.dataset.m==="dark" } }, "*");
     });
 
     // Font

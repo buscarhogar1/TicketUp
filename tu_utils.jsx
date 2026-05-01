@@ -59,13 +59,13 @@ const EVENT_TYPES = [
 ];
 
 const TYPE_META = {
-  FOOTBALL:  { grad:["#0D3B8E","#1A6FCC"], accent:"#4A9EFF" },
-  CONCERT:   { grad:["#4A0080","#9333EA"], accent:"#C084FC" },
-  THEATRE:   { grad:["#7C2400","#EA580C"], accent:"#FB923C" },
-  FESTIVAL:  { grad:["#831843","#E11D78"], accent:"#F472B6" },
-  SPORT:     { grad:["#064E3B","#059669"], accent:"#34D399" },
-  COMEDY:    { grad:["#713F12","#CA8A04"], accent:"#FCD34D" },
-  OTHER:     { grad:["#1E293B","#475569"], accent:"#94A3B8" },
+  FOOTBALL:  { grad:["#DBEAFE","#BFDBFE"], text:"#1D4ED8", accent:"#2563EB" },
+  CONCERT:   { grad:["#EDE9FE","#DDD6FE"], text:"#6D28D9", accent:"#7C3AED" },
+  THEATRE:   { grad:["#FEE2E2","#FECACA"], text:"#B91C1C", accent:"#EA580C" },
+  FESTIVAL:  { grad:["#FCE7F3","#FBCFE8"], text:"#9D174D", accent:"#E11D78" },
+  SPORT:     { grad:["#D1FAE5","#A7F3D0"], text:"#065F46", accent:"#059669" },
+  COMEDY:    { grad:["#FEF3C7","#FDE68A"], text:"#92400E", accent:"#D97706" },
+  OTHER:     { grad:["#F1F5F9","#E2E8F0"], text:"#475569", accent:"#64748B" },
 };
 
 // ─── Base UI Components ────────────────────────────────────────────────────
@@ -105,9 +105,9 @@ function TypeBadge({ type, size = "sm" }) {
   return (
     <span style={{
       display:"inline-block", padding:p, borderRadius:999,
-      background: m.grad[0] + "22", color: m.grad[1],
+      background: m.grad[0], color: m.text,
       fontSize:fs, fontWeight:600, letterSpacing:"0.02em",
-      border:`1px solid ${m.grad[1]}33`
+      border:`1px solid ${m.grad[1]}`
     }}>{t?.label || type}</span>
   );
 }
@@ -237,8 +237,8 @@ function Modal({ children, onClose }) {
 function Topbar({ page, setPage, user, setUser }) {
   return (
     <header style={{
-      background:"#0A0A0F", position:"sticky", top:0, zIndex:200,
-      borderBottom:"1px solid rgba(255,255,255,0.07)"
+      background:"var(--card)", position:"sticky", top:0, zIndex:200,
+      borderBottom:"1px solid var(--border)"
     }}>
       <div style={{
         maxWidth:1200, margin:"0 auto", padding:"0 24px",
@@ -259,8 +259,8 @@ function Topbar({ page, setPage, user, setUser }) {
             </svg>
           </div>
           <div>
-            <div style={{fontWeight:800, fontSize:15, color:"#fff", letterSpacing:"-0.02em"}}>TicketUp</div>
-            <div style={{fontSize:9, color:"rgba(255,255,255,0.4)", letterSpacing:"0.04em", marginTop:-1}}>PRECIO FINAL</div>
+            <div style={{fontWeight:800, fontSize:15, color:"var(--text)", letterSpacing:"-0.02em"}}>TicketUp</div>
+            <div style={{fontSize:9, color:"var(--muted)", letterSpacing:"0.04em", marginTop:-1}}>PRECIO FINAL</div>
           </div>
         </button>
 
@@ -272,11 +272,11 @@ function Topbar({ page, setPage, user, setUser }) {
             { id:"panel", label:"Mi panel" },
           ].map(n => (
             <button key={n.id} onClick={() => setPage(n.id)} style={{
-              background:"none", border:"none", cursor:"pointer",
+              background: page === n.id ? "var(--accent-faint)" : "none",
+              border:"none", cursor:"pointer",
               padding:"6px 12px", borderRadius:8, fontFamily:"inherit",
               fontSize:14, fontWeight:500, transition:"all 0.15s",
-              color: page === n.id ? "#fff" : "rgba(255,255,255,0.5)",
-              background: page === n.id ? "rgba(255,255,255,0.1)" : "none",
+              color: page === n.id ? "var(--accent)" : "var(--muted)",
             }}>{n.label}</button>
           ))}
         </nav>
@@ -287,16 +287,14 @@ function Topbar({ page, setPage, user, setUser }) {
         <div style={{display:"flex", gap:8, alignItems:"center"}}>
           {user ? (
             <>
-              <span style={{fontSize:13, color:"rgba(255,255,255,0.6)"}}>{user.name}</span>
-              <Btn size="sm" variant="ghost" onClick={() => setUser(null)}
-                style={{color:"rgba(255,255,255,0.7)", borderColor:"rgba(255,255,255,0.15)"}}>
+              <span style={{fontSize:13, color:"var(--muted)"}}>{user.name}</span>
+              <Btn size="sm" variant="ghost" onClick={() => setUser(null)}>
                 Salir
               </Btn>
             </>
           ) : (
             <>
-              <Btn size="sm" variant="ghost" onClick={() => setUser({ name:"María G.", email:"maria@example.com" })}
-                style={{color:"rgba(255,255,255,0.7)", borderColor:"rgba(255,255,255,0.15)"}}>
+              <Btn size="sm" variant="ghost" onClick={() => setUser({ name:"María G.", email:"maria@example.com" })}>
                 Iniciar sesión
               </Btn>
               <Btn size="sm" onClick={() => setPage("sell")}
@@ -314,7 +312,7 @@ function Topbar({ page, setPage, user, setUser }) {
 // Footer
 function Footer({ setPage }) {
   return (
-    <footer style={{ background:"#0A0A0F", borderTop:"1px solid rgba(255,255,255,0.07)", padding:"32px 24px", marginTop:48 }}>
+    <footer style={{ background:"var(--card)", borderTop:"1px solid var(--border)", padding:"32px 24px", marginTop:48 }}>
       <div style={{ maxWidth:1200, margin:"0 auto" }}>
         <div style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:40, marginBottom:32 }}>
           <div>
@@ -322,9 +320,9 @@ function Footer({ setPage }) {
               <div style={{ width:28, height:28, borderRadius:8, background:"var(--accent)", display:"flex", alignItems:"center", justifyContent:"center" }}>
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"/></svg>
               </div>
-              <span style={{ fontWeight:800, fontSize:15, color:"#fff" }}>TicketUp</span>
+              <span style={{ fontWeight:800, fontSize:15, color:"var(--text)" }}>TicketUp</span>
             </div>
-            <p style={{ fontSize:13, color:"rgba(255,255,255,0.4)", lineHeight:1.6, maxWidth:220 }}>
+            <p style={{ fontSize:13, color:"var(--muted)", lineHeight:1.6, maxWidth:220 }}>
               Marketplace de reventa de entradas. Precio final, sin sorpresas.
             </p>
           </div>
@@ -334,10 +332,10 @@ function Footer({ setPage }) {
             { title:"Legal",   links:["Términos de uso","Privacidad","Cookies"] },
           ].map(col => (
             <div key={col.title}>
-              <div style={{ fontSize:12, fontWeight:700, color:"rgba(255,255,255,0.3)", letterSpacing:"0.08em", marginBottom:10, textTransform:"uppercase" }}>{col.title}</div>
+              <div style={{ fontSize:12, fontWeight:700, color:"var(--muted)", letterSpacing:"0.08em", marginBottom:10, textTransform:"uppercase" }}>{col.title}</div>
               {col.links.map(l => (
                 <div key={l} style={{ marginBottom:6 }}>
-                  <a href="#" onClick={e => e.preventDefault()} style={{ fontSize:13, color:"rgba(255,255,255,0.5)", textDecoration:"none" }}>{l}</a>
+                  <a href="#" onClick={e => e.preventDefault()} style={{ fontSize:13, color:"var(--muted)", textDecoration:"none" }}>{l}</a>
                 </div>
               ))}
             </div>
@@ -345,8 +343,8 @@ function Footer({ setPage }) {
         </div>
         <Divider/>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:20, gap:12, flexWrap:"wrap" }}>
-          <span style={{ fontSize:12, color:"rgba(255,255,255,0.3)" }}>© 2026 TicketUp. Todos los derechos reservados.</span>
-          <span style={{ fontSize:12, color:"rgba(255,255,255,0.3)" }}>Solo operamos en España 🇪🇸</span>
+          <span style={{ fontSize:12, color:"var(--muted)" }}>© 2026 TicketUp. Todos los derechos reservados.</span>
+          <span style={{ fontSize:12, color:"var(--muted)" }}>Solo operamos en España 🇪🇸</span>
         </div>
       </div>
     </footer>

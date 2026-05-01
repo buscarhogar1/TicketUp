@@ -61,34 +61,35 @@ function HomePage({ setPage, setActiveEvent }) {
     <div>
       {/* ── HERO ── */}
       <section style={{
-        background:"linear-gradient(160deg, #0A0A0F 0%, #111827 55%, #0F1F10 100%)",
+        background:"linear-gradient(160deg, var(--accent-faint) 0%, #FFFFFF 60%, var(--accent-faint) 100%)",
         padding:"56px 24px 48px", marginBottom:0
       }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
           <div style={{ textAlign:"center", marginBottom:36 }}>
             <h1 style={{
-              fontSize:52, fontWeight:800, color:"#fff",
+              fontSize:52, fontWeight:800, color:"var(--text)",
               letterSpacing:"-0.04em", lineHeight:1.05, marginBottom:12
             }}>
               Entradas reales.<br/>
               <span style={{ color:"var(--accent)" }}>Precio final.</span>
             </h1>
-            <p style={{ fontSize:17, color:"rgba(255,255,255,0.5)", maxWidth:480, margin:"0 auto" }}>
+            <p style={{ fontSize:17, color:"var(--muted)", maxWidth:480, margin:"0 auto" }}>
               El precio que ves es el precio que pagas. Siempre. Sin gastos de gestión ocultos.
             </p>
           </div>
 
           {/* Search card */}
           <div style={{
-            background:"rgba(255,255,255,0.06)", backdropFilter:"blur(20px)",
-            border:"1px solid rgba(255,255,255,0.1)",
-            borderRadius:20, padding:20, maxWidth:800, margin:"0 auto"
+            background:"#fff",
+            border:"1px solid var(--border)",
+            borderRadius:20, padding:20, maxWidth:800, margin:"0 auto",
+            boxShadow:"var(--shadow-md)"
           }}>
             {/* Main search row */}
             <div style={{
               display:"flex", gap:10, marginBottom:14,
-              background:"#fff", borderRadius:12, padding:"6px 6px 6px 16px",
-              alignItems:"center"
+              background:"var(--bg)", borderRadius:12, padding:"6px 6px 6px 16px",
+              alignItems:"center", border:"1px solid var(--border)"
             }}>
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" style={{ color:"#9CA3AF", flexShrink:0 }}>
                 <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
@@ -123,24 +124,23 @@ function HomePage({ setPage, setActiveEvent }) {
                 { id:"dt", label:"Hasta", type:"date", val:dateTo,   fn:setDateTo },
               ].map(f => (
                 <div key={f.id}>
-                  <label style={{ display:"block", fontSize:10, fontWeight:600, color:"rgba(255,255,255,0.4)", letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>{f.label}</label>
+                  <label style={{ display:"block", fontSize:10, fontWeight:600, color:"var(--muted)", letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>{f.label}</label>
                   <input type={f.type} value={f.val} onChange={e => f.fn(e.target.value)} style={{
                     width:"100%", padding:"9px 12px", borderRadius:9,
-                    border:"1px solid rgba(255,255,255,0.12)", background:"rgba(255,255,255,0.08)",
-                    fontSize:13, fontFamily:"inherit", color:"#fff", outline:"none",
-                    colorScheme:"dark"
+                    border:"1px solid var(--border)", background:"var(--bg)",
+                    fontSize:13, fontFamily:"inherit", color:"var(--text)", outline:"none"
                   }}/>
                 </div>
               ))}
               <div>
-                <label style={{ display:"block", fontSize:10, fontWeight:600, color:"rgba(255,255,255,0.4)", letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>Ciudad</label>
+                <label style={{ display:"block", fontSize:10, fontWeight:600, color:"var(--muted)", letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>Ciudad</label>
                 <select value={city} onChange={e => setCity(e.target.value)} style={{
                   width:"100%", padding:"9px 12px", borderRadius:9,
-                  border:"1px solid rgba(255,255,255,0.12)", background:"rgba(255,255,255,0.08)",
-                  fontSize:13, fontFamily:"inherit", color:"#fff", outline:"none", cursor:"pointer"
+                  border:"1px solid var(--border)", background:"var(--bg)",
+                  fontSize:13, fontFamily:"inherit", color:"var(--text)", outline:"none", cursor:"pointer"
                 }}>
-                  <option value="" style={{ background:"#1a1a2e" }}>Cualquier ciudad</option>
-                  {cities.map(c => <option key={c} value={c} style={{ background:"#1a1a2e" }}>{c}</option>)}
+                  <option value="">Cualquier ciudad</option>
+                  {cities.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
             </div>
@@ -152,9 +152,9 @@ function HomePage({ setPage, setActiveEvent }) {
               <button key={t.key} onClick={() => setType(t.key)} style={{
                 padding:"7px 14px", borderRadius:999, fontSize:13, fontWeight:500,
                 border:"1px solid", fontFamily:"inherit", cursor:"pointer", transition:"all 0.15s",
-                borderColor: type === t.key ? "var(--accent)" : "rgba(255,255,255,0.15)",
-                background:   type === t.key ? "var(--accent)" : "rgba(255,255,255,0.06)",
-                color:        type === t.key ? "#fff" : "rgba(255,255,255,0.6)",
+                borderColor: type === t.key ? "var(--accent)" : "var(--border)",
+                background:   type === t.key ? "var(--accent)" : "#fff",
+                color:        type === t.key ? "#fff" : "var(--text)",
               }}>{t.icon} {t.label}</button>
             ))}
           </div>

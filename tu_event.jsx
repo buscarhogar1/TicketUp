@@ -68,17 +68,17 @@ function EventPage({ event, setPage, setCheckoutListing }) {
           <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:20, fontSize:13 }}>
             <button onClick={() => setPage("home")} style={{
               background:"none", border:"none", cursor:"pointer", fontFamily:"inherit",
-              color:"rgba(255,255,255,0.6)", fontSize:13, padding:0
+              color:"var(--muted)", fontSize:13, padding:0
             }}>← Eventos</button>
-            <span style={{ color:"rgba(255,255,255,0.3)" }}>/</span>
-            <span style={{ color:"rgba(255,255,255,0.8)" }}>{event.name}</span>
+            <span style={{ color:"var(--border)" }}>/</span>
+            <span style={{ color:"var(--text)" }}>{event.name}</span>
           </div>
 
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", gap:20, flexWrap:"wrap" }}>
             <div>
               <TypeBadge type={event.event_type} size="md"/>
               <h1 style={{
-                fontSize:38, fontWeight:800, color:"#fff",
+                fontSize:38, fontWeight:800, color:"var(--text)",
                 letterSpacing:"-0.04em", lineHeight:1.1, margin:"10px 0 10px"
               }}>{event.name}</h1>
               <div style={{ display:"flex", gap:16, flexWrap:"wrap" }}>
@@ -86,7 +86,7 @@ function EventPage({ event, setPage, setCheckoutListing }) {
                   { icon:"📍", text:`${event.city} · ${event.venue_name}` },
                   { icon:"🗓",  text: formatDate(event.start_datetime) },
                 ].map(i => (
-                  <div key={i.text} style={{ display:"flex", alignItems:"center", gap:6, fontSize:14, color:"rgba(255,255,255,0.7)" }}>
+                  <div key={i.text} style={{ display:"flex", alignItems:"center", gap:6, fontSize:14, color:"var(--muted)" }}>
                     <span>{i.icon}</span><span>{i.text}</span>
                   </div>
                 ))}
@@ -96,12 +96,13 @@ function EventPage({ event, setPage, setCheckoutListing }) {
             {/* Price from box */}
             {minPrice !== null && (
               <div style={{
-                background:"rgba(0,0,0,0.35)", backdropFilter:"blur(16px)",
-                border:"1px solid rgba(255,255,255,0.15)",
-                borderRadius:16, padding:"16px 22px", textAlign:"center", flexShrink:0
+                background:"var(--card)",
+                border:"1px solid var(--border)",
+                borderRadius:16, padding:"16px 22px", textAlign:"center", flexShrink:0,
+                boxShadow:"var(--shadow-md)"
               }}>
-                <div style={{ fontSize:11, fontWeight:600, color:"rgba(255,255,255,0.5)", letterSpacing:"0.06em", marginBottom:4 }}>DESDE</div>
-                <div style={{ fontSize:30, fontWeight:800, color:"#fff", letterSpacing:"-0.03em" }}>{eur(minPrice)}</div>
+                <div style={{ fontSize:11, fontWeight:600, color:"var(--muted)", letterSpacing:"0.06em", marginBottom:4 }}>DESDE</div>
+                <div style={{ fontSize:30, fontWeight:800, color:"var(--text)", letterSpacing:"-0.03em" }}>{eur(minPrice)}</div>
                 <div style={{ fontSize:11, color:"var(--accent)", fontWeight:600, marginTop:3 }}>✓ precio final · gastos incluidos</div>
               </div>
             )}
